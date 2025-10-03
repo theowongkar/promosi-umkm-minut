@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'status',
     ];
 
     /**
@@ -44,5 +46,38 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Relasi: User memiliki banyak bisnis
+     */
+    public function businesses()
+    {
+        return $this->hasMany(Business::class, 'user_id');
+    }
+
+    /**
+     * Relasi: User memiliki banyak review
+     */
+    public function reviews()
+    {
+        return $this->hasMany(ProductReview::class, 'user_id');
+    }
+
+    /**
+     * Relasi: User memiliki wishlist produk
+     */
+    public function wishlist()
+    {
+        return $this->belongsToMany(Product::class, 'product_wishlists')
+            ->withTimestamps();
+    }
+
+    /**
+     * Relasi: User memiliki banyak produk melalui bisnis
+     */
+    public function products()
+    {
+        return $this->hasManyThrough(Product::class, Business::class, 'user_id', 'business_id');
     }
 }
