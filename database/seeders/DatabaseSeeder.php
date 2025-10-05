@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             'Konstruksi',
             'Informasi & Komunikasi',
             'Penyediaan Akomodasi & Penyediaan Makan Minum',
+            'Pariwisata',
             'Aktifitas Jasa Lainnya',
         ];
 
@@ -58,6 +59,7 @@ class DatabaseSeeder extends Seeder
             "Rumah Tangga & Properti",
             "Pertanian, Perikanan & Peternakan",
             "Jasa & Layanan",
+            "Destinasi Wisata"
         ];
 
         foreach ($productCategories as $productCategory) {
