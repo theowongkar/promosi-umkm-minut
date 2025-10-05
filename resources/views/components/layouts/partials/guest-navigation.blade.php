@@ -11,7 +11,8 @@
 
             <ul class="flex items-center gap-x-2 md:gap-x-5 border-white">
                 <li><a href="#" class="text-[0.7rem] md:text-xs hover:underline">Notifikasi</a></li>
-                <li><a href="{{ route('help-center') }}" class="text-[0.7rem] md:text-xs hover:underline">Bantuan</a></li>
+                <li><a href="{{ route('help-center') }}" class="text-[0.7rem] md:text-xs hover:underline">Bantuan</a>
+                </li>
             </ul>
         </div>
 
@@ -41,7 +42,6 @@
             <div class="flex flex-1 justify-end">
                 @auth
                     <div x-data="{ open: false }" class="relative">
-                        <!-- Tombol ikon -->
                         <button @click="open = !open" type="button" aria-label="User Button"
                             class="p-2 rounded-full cursor-pointer hover:bg-white/10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
@@ -50,14 +50,20 @@
                             </svg>
                         </button>
 
-                        <!-- Dropdown -->
-                        <div x-show="open" @click.outside="open = false" x-transition
-                            class="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-lg shadow overflow-hidden z-50">
+                        <div x-show="open" x-cloak @click.outside="open = false" x-transition
+                            class="absolute right-1/2 translate-x-1/2 lg:right-0 lg:translate-x-0 w-48 mt-2 bg-white border border-gray-300 rounded-lg shadow overflow-hidden z-50">
+                            <div class="block px-4 py-2 leading-none border-b border-gray-500">
+                                <h3 class="text-black font-semibold line-clamp-1">{{ auth()->user()->name }} aaaaaaaa aaaaa
+                                </h3>
+                                <p class="text-sm text-gray-800">{{ auth()->user()->role }}</p>
+                            </div>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Profil
+                                Saya</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Usaha Saya</a>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
 
-                                <button href="#"
+                                <button type="submit"
                                     class="block w-full px-4 py-2 text-sm text-start text-red-600 cursor-pointer hover:bg-gray-100">Logout</button>
                             </form>
                         </div>

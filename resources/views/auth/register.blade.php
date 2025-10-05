@@ -1,0 +1,33 @@
+<x-guest-layout>
+
+    {{-- Judul Halaman --}}
+    <x-slot name="title">Register</x-slot>
+
+    {{-- Bagian Banner --}}
+    <section>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-8">
+            <div class="flex justify-center">
+                <div class="w-full max-w-sm flex flex-col p-5 border border-gray-300 rounded-lg shadow overflow-hidden">
+                    <h1 class="mb-5 text-xl font-bold">Register</h1>
+
+                    <form action="{{ route('register') }}" method="post" class="space-y-5">
+                        @csrf
+
+                        <x-forms.select name="role" :options="['Pengunjung', 'Penjual']" />
+                        <x-forms.input type="text" name="name" value="{{ old('name') }}"
+                            placeholder="Username" />
+                        <x-forms.input type="email" name="email" value="{{ old('email') }}" placeholder="Email" />
+                        <x-forms.input type="password" name="password" placeholder="Password" />
+                        <x-forms.input type="password" name="password_confirmation" placeholder="Konfirmasi Password" />
+
+                        <x-buttons.primary-button type="submit" class="w-full">Daftar</x-buttons.primary-button>
+                    </form>
+
+                    <p class="mt-5 text-center">Sudah punya akun? <a href="{{ route('login') }}"
+                            class="text-blue-600 hover:underline">login sekarang!</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</x-guest-layout>
