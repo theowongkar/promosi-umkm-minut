@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/profil-saya', [ProfileController::class, 'update'])->middleware('throttle:5,5')->name('profile.update');
 
     // Wishlist Produk
+    Route::get('/wishlist-saya', [ProductWishlistController::class, 'index'])->name('product-wishlist.index');
     Route::post('/wishlist/{product}', [ProductWishlistController::class, 'store'])->name('product-wishlist.store');
     Route::delete('/wishlist/{product}', [ProductWishlistController::class, 'destroy'])->name('product-wishlist.destroy');
 

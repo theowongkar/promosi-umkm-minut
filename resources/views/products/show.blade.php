@@ -36,13 +36,20 @@
                 <div>
                     <div class="mb-5 space-y-4">
                         <h1 class="text-2xl font-bold">{{ $product->name }}</h1>
-                        <div class="space-y-2">
-                            <span class="block text-xl font-medium">Rp.
+                        <div class="flex flex-col space-y-2">
+                            <span class="text-xl font-medium">Rp.
                                 {{ number_format($product->price, 0, ',', '.') }}</span>
+                            <div class="flex items-center gap-2">
+                                <span
+                                    class="inline-block w-fit px-2 py-1 bg-yellow-500/30 text-sm border border-yellow-500 rounded-lg">
+                                    ⭐ {{ number_format($product->averageRating() ?? 0, 1) }}
+                                </span>
+                                <span class="text-sm text-gray-800">
+                                    {{ $product->reviews->count() }} Ulasan
+                                </span>
+                            </div>
                             <span
-                                class="inline-block px-2 py-1 bg-yellow-500/30 text-sm whitespace-nowrap border border-yellow-500 rounded-lg">
-                                ⭐ {{ $product->averageRating() ?? 0 }}
-                            </span>
+                                class="inline-block w-fit px-2 py-1 bg-[#c5e1a5] text-sm border border-green-500 rounded-md">{{ $product->category->name }}</span>
                         </div>
                         <p>{{ $product->description }}</p>
                     </div>

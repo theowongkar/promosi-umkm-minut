@@ -8,6 +8,20 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductWishlistController extends Controller
 {
+    public function index()
+    {
+        // Cek login
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        // Ambil semua produk di wishlist user
+        $wishlistProducts = Auth::user()->wishlist()->with('category')->get();
+
+        // Kirim ke view
+        return view('wishlists.index', compact('wishlistProducts'));
+    }
+
     public function store(Product $product)
     {
         // Cek apakah sudah login
