@@ -9,13 +9,15 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductReviewController extends Controller
 {
-    public function upsert(Request $request, $productId)
+    public function upsert(Request $request, string $productId)
     {
+        // Validasi Input
         $validated = $request->validate([
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'required|string|max:1000',
         ]);
 
+        // Ambil ID User
         $userId = Auth::id();
 
         // Cari review user untuk produk ini

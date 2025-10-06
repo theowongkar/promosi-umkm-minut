@@ -125,16 +125,16 @@
 
                             <div x-data="{
                                 isWishlisted: {{ $isWishlisted ? 'true' : 'false' }},
-                                isLoggedIn: {{ auth()->check() ? 'true' : 'false' }}, // cek login
+                                isLoggedIn: {{ auth()->check() ? 'true' : 'false' }},
                                 toggleWishlist() {
                                     if (!this.isLoggedIn) {
-                                        window.location.href = '{{ route('login') }}'; // redirect kalau belum login
+                                        window.location.href = '{{ route('login') }}';
                                         return;
                                     }
 
                                     fetch(this.isWishlisted ?
-                                            '{{ route('wishlist.destroy', $product->id) }}' :
-                                            '{{ route('wishlist.store', $product->id) }}', {
+                                            '{{ route('product-wishlist.destroy', $product->id) }}' :
+                                            '{{ route('product-wishlist.store', $product->id) }}', {
                                                 method: this.isWishlisted ? 'DELETE' : 'POST',
                                                 headers: {
                                                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -143,7 +143,7 @@
                                             })
                                         .then(res => {
                                             if (res.ok) this.isWishlisted = !this.isWishlisted;
-                                            else if (res.status === 401) window.location.href = '{{ route('login') }}'; // fallback
+                                            else if (res.status === 401) window.location.href = '{{ route('login') }}';
                                         })
                                         .catch(err => console.error(err));
                                 }

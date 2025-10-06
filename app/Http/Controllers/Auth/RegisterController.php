@@ -16,7 +16,7 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi input dari form
+        // Validasi Input
         $validated = $request->validate([
             'role' => 'required|in:Pengunjung,Penjual',
             'name' => 'required|string|max:100',
@@ -24,7 +24,7 @@ class RegisterController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // Simpan user baru
+        // Simpan User
         $user = User::create([
             'role' => $validated['role'],
             'name' => $validated['name'],
@@ -32,6 +32,6 @@ class RegisterController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('login')->with('success', 'Akun berhasil dibuat!');
+        return redirect()->route('register')->with('success', 'Akun berhasil dibuat!');
     }
 }

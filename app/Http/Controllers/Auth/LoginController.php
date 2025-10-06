@@ -16,11 +16,13 @@ class LoginController extends Controller
 
     public function authenticate(Request $request): RedirectResponse
     {
+        // Validasi Input
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
+        // Attempt Login
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
@@ -34,10 +36,11 @@ class LoginController extends Controller
 
     public function logout(Request $request): RedirectResponse
     {
+        // Logout User
         Auth::logout();
 
+        // Hapus dan buat ulang token
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');

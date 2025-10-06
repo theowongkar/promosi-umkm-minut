@@ -34,13 +34,13 @@ Route::middleware('auth')->group(function () {
 
     // Edit Profil
     Route::get('/profil-saya', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profil-saya', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profil-saya', [ProfileController::class, 'update'])->middleware('throttle:5,5')->name('profile.update');
 
     // Wishlist Produk
-    Route::post('/wishlist/{product}', [ProductWishlistController::class, 'store'])->name('wishlist.store');
-    Route::delete('/wishlist/{product}', [ProductWishlistController::class, 'destroy'])->name('wishlist.destroy');
+    Route::post('/wishlist/{product}', [ProductWishlistController::class, 'store'])->name('product-wishlist.store');
+    Route::delete('/wishlist/{product}', [ProductWishlistController::class, 'destroy'])->name('product-wishlist.destroy');
 
     // Review Produk
-    Route::post('/products/{product}/review', [ProductReviewController::class, 'upsert'])->name('product-review.upsert');
-    Route::delete('/review/{product}', [ProductReviewController::class, 'destroy'])->name('product-review.destroy');
+    Route::post('/review/{product}', [ProductReviewController::class, 'upsert'])->middleware('throttle:5,5')->name('product-review.upsert');
+    Route::delete('/review/{product}', [ProductReviewController::class, 'destroy'])->middleware('throttle:5,5')->name('product-review.destroy');
 });

@@ -20,7 +20,6 @@ class ProductController extends Controller
         $search = $validated['search'] ?? null;
         $category = $validated['category'] ?? null;
 
-
         // Ambil kategori produk
         $productCategories = ProductCategory::all();
 
@@ -44,7 +43,6 @@ class ProductController extends Controller
         // Urutkan dari rating tertinggi
         $products = $query->orderByDesc('reviews_avg_rating')->paginate(25);
 
-        // Kirim ke view
         return view('products.index', compact('productCategories', 'products', 'search', 'category'));
     }
 

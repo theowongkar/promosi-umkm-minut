@@ -18,6 +18,7 @@
 
         {{-- Bawah --}}
         <div class="flex flex-col lg:flex-row items-center justify-between gap-2 py-4">
+            {{-- Logo --}}
             <a href="{{ route('home') }}" class="flex flex-1 items-center justify-start gap-x-2">
                 <img src="{{ asset('img/application-logo.svg') }}" alt="Logo Aplikasi" class="w-10 h-10" />
                 <div class="leading-tight">
@@ -26,6 +27,7 @@
                 </div>
             </a>
 
+            {{-- Search Form --}}
             <form action="{{ route('product.index') }}" method="GET"
                 class="relative flex justify-center w-full max-w-xl">
                 <input type="text" name="search" value="{{ request('search') }}"
@@ -44,6 +46,7 @@
                 </button>
             </form>
 
+            {{-- Navigasi User --}}
             <div class="flex flex-1 justify-end">
                 @auth
                     <div x-data="{ open: false }" class="relative">
@@ -61,10 +64,13 @@
                                 <h3 class="text-black font-semibold line-clamp-1">{{ auth()->user()->name }}</h3>
                                 <p class="text-sm text-gray-800">{{ auth()->user()->role }}</p>
                             </div>
+
                             <a href="{{ route('profile.edit') }}"
                                 class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Profil
                                 Saya</a>
+
                             <a href="#" class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Usaha Saya</a>
+
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
 

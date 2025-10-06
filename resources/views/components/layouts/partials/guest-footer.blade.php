@@ -17,26 +17,33 @@
                     Kabupaten Minahasa Utara, Sulawesi Utara.</p>
             </div>
 
+            {{-- Akses Cepat --}}
             <div>
                 <h3 class="mb-3 font-bold">Akses Cepat</h3>
                 <ul class="space-y-1">
-                    <li><a href="#" class="hover:underline">Beranda</a></li>
-                    <li><a href="#" class="hover:underline">Seller Center</a></li>
-                    <li><a href="#" class="hover:underline">Mulai Berjualan</a></li>
-                    <li><a href="#" class="hover:underline">Bantuan</a></li>
+                    <li><a href="{{ route('home') }}" class="hover:underline">Beranda</a></li>
+                    <li><a href="{{ route('product.index') }}" class="hover:underline">Produk</a></li>
+                    <li><a href="{{ route('selling-guide') }}" class="hover:underline">Mulai Berjualan</a></li>
+                    <li><a href="{{ route('help-center') }}" class="hover:underline">Bantuan</a></li>
                 </ul>
             </div>
 
+            {{-- Kategori Populer --}}
             <div>
                 <h3 class="mb-3 font-bold">Kategori Populer</h3>
                 <ul class="space-y-1">
-                    <li><a href="#" class="hover:underline">Makanan & Minuman</a></li>
-                    <li><a href="#" class="hover:underline">Fashion & Aksesoris</a></li>
-                    <li><a href="#" class="hover:underline">Kerajinan & Souvenir</a></li>
-                    <li><a href="#" class="hover:underline">Pertanian, Perikanan & Peternakan</a></li>
+                    <li><a href="{{ route('product.index', ['category' => 'makanan-minuman']) }}"
+                            class="hover:underline">Makanan & Minuman</a></li>
+                    <li><a href="{{ route('product.index', ['category' => 'fashion-aksesoris']) }}"
+                            class="hover:underline">Fashion & Aksesoris</a></li>
+                    <li><a href="{{ route('product.index', ['category' => 'kerajinan-handmade']) }}"
+                            class="hover:underline">Kerajinan & Handmade</a></li>
+                    <li><a href="{{ route('product.index', ['category' => 'destinasi-wisata']) }}"
+                            class="hover:underline">Destinasi Wisata</a></li>
                 </ul>
             </div>
 
+            {{-- Kontak Kami --}}
             <div>
                 <h3 class="mb-3 font-bold">Kontak Kami</h3>
                 <ul class="space-y-1">

@@ -72,8 +72,8 @@
                                 }
 
                                 fetch(this.isWishlisted ?
-                                        '{{ route('wishlist.destroy', $product->id) }}' :
-                                        '{{ route('wishlist.store', $product->id) }}', {
+                                        '{{ route('product-wishlist.destroy', $product->id) }}' :
+                                        '{{ route('product-wishlist.store', $product->id) }}', {
                                             method: this.isWishlisted ? 'DELETE' : 'POST',
                                             headers: {
                                                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -162,7 +162,7 @@
                                             <x-forms.textarea label="Ulasan" name="comment" :value="old('comment', optional($userReview)->comment)" />
 
                                             <x-buttons.primary-button type="submit" class="w-full">
-                                                {{ $userReview ? 'Update' : 'Simpan' }}
+                                                {{ $userReview ? 'Ubah' : 'Simpan' }}
                                             </x-buttons.primary-button>
                                         </form>
                                     </li>

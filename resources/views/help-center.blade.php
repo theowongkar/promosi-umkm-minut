@@ -3,7 +3,7 @@
     {{-- Judul Halaman --}}
     <x-slot name="title">Pusat Bantuan</x-slot>
 
-    {{-- Bagian Banner --}}
+    {{-- Bagian Pusat Bantuan --}}
     <section>
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-8 max-w-2xl space-y-6">
             <h1 class="text-2xl font-bold">🚨 Pusat Bantuan</h1>
