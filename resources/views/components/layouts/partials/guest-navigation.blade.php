@@ -61,7 +61,8 @@
                                 <h3 class="text-black font-semibold line-clamp-1">{{ auth()->user()->name }}</h3>
                                 <p class="text-sm text-gray-800">{{ auth()->user()->role }}</p>
                             </div>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Profil
+                            <a href="{{ route('profile.edit') }}"
+                                class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Profil
                                 Saya</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Usaha Saya</a>
                             <form action="{{ route('logout') }}" method="POST">

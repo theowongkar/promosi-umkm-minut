@@ -14,7 +14,8 @@
                         @csrf
 
                         <div>
-                            <input id="email" type="email" name="email" placeholder="Email" required
+                            <input id="email" type="email" name="email" :value="old('email')" placeholder="Email"
+                                required
                                 class="w-full px-3 py-2 bg-white text-sm border border-gray-300 rounded-md focus:outline-blue-500">
 
                             @error('email')
