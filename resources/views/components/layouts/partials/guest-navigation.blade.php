@@ -26,18 +26,23 @@
                 </div>
             </a>
 
-            <div class="relative flex justify-center w-full max-w-xl">
-                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+            <form action="{{ route('product.index') }}" method="GET"
+                class="relative flex justify-center w-full max-w-xl">
+                <input type="text" name="search" value="{{ request('search') }}"
+                    placeholder="Temukan produk di sini..."
+                    class="w-full pr-10 pl-3 py-2 bg-white text-black rounded-lg shadow focus:outline-none" />
+
+                <input type="hidden" name="category" value="{{ request('category') }}">
+
+                <button type="submit" class="absolute inset-y-0 right-0 flex items-center pr-3">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5 text-gray-400 cursor-pointer hover:text-blue-500" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 3a7.5 7.5 0 016.15 13.65z" />
                     </svg>
-                </div>
-                <input type="text" name="search" placeholder="Temukan produk di sini..."
-                    class="w-full pr-10 pl-3 py-2 bg-white text-black rounded-lg shadow focus:outline-none" />
-            </div>
+                </button>
+            </form>
 
             <div class="flex flex-1 justify-end">
                 @auth
@@ -53,8 +58,7 @@
                         <div x-show="open" x-cloak @click.outside="open = false" x-transition
                             class="absolute right-1/2 translate-x-1/2 lg:right-0 lg:translate-x-0 w-48 mt-2 bg-white border border-gray-300 rounded-lg shadow overflow-hidden z-50">
                             <div class="block px-4 py-2 leading-none border-b border-gray-500">
-                                <h3 class="text-black font-semibold line-clamp-1">{{ auth()->user()->name }} aaaaaaaa aaaaa
-                                </h3>
+                                <h3 class="text-black font-semibold line-clamp-1">{{ auth()->user()->name }}</h3>
                                 <p class="text-sm text-gray-800">{{ auth()->user()->role }}</p>
                             </div>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Profil

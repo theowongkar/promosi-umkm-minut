@@ -6,10 +6,11 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Product;
 use App\Models\Business;
+use Illuminate\Support\Str;
 use App\Models\ProductReview;
+use App\Models\ProductCategory;
 use Illuminate\Database\Seeder;
 use App\Models\BusinessCategory;
-use App\Models\ProductCategory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -43,6 +44,7 @@ class DatabaseSeeder extends Seeder
         foreach ($businessCategories as $businessCategory) {
             BusinessCategory::factory()->create([
                 'name' => $businessCategory,
+                'slug' => Str::slug($businessCategory),
             ]);
         }
 
@@ -65,6 +67,7 @@ class DatabaseSeeder extends Seeder
         foreach ($productCategories as $productCategory) {
             ProductCategory::factory()->create([
                 'name' => $productCategory,
+                'slug' => Str::slug($productCategory),
             ]);
         }
 
