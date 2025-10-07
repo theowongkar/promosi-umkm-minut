@@ -7,6 +7,7 @@ use App\Models\Business;
 use Illuminate\Http\Request;
 use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
@@ -103,6 +104,9 @@ class ProductController extends Controller
 
     public function myProductEdit(Business $business, Product $product)
     {
+        // Batasi hak akses
+        Gate::authorize('update', $product);
+
         // Ambil semua kategori produk
         $productCategories = ProductCategory::all();
 
@@ -112,6 +116,9 @@ class ProductController extends Controller
 
     public function myProductUpdate(Request $request, Business $business, Product $product)
     {
+        // Batasi hak akses
+        Gate::authorize('update', $product);
+
         if ($request->action == 'delete') {
             // Hapus semua gambar yang terkait
             foreach ($product->images as $image) {

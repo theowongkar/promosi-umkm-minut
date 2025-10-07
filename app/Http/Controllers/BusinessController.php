@@ -6,11 +6,15 @@ use App\Models\Business;
 use Illuminate\Http\Request;
 use App\Models\BusinessCategory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class BusinessController extends Controller
 {
     public function myBusinessIndex()
     {
+        // Batasi hak akses
+        Gate::authorize('viewAny', Business::class);
+
         // Ambil User
         $user = Auth::user();
 
@@ -25,6 +29,10 @@ class BusinessController extends Controller
 
     public function myBusinessCreate()
     {
+        // Batasi hak akses
+        Gate::authorize('create', Business::class);
+
+        // Ambil Business Categories
         $businessCategories = BusinessCategory::all();
 
         return view('my-businesses.create', compact('businessCategories'));
@@ -63,6 +71,10 @@ class BusinessController extends Controller
 
     public function myBusinessEdit(Business $business)
     {
+        // Batasi hak akses
+        Gate::authorize('update', $business);
+
+        // Ambil Business Categories
         $businessCategories = BusinessCategory::all();
 
         return view('my-businesses.edit', compact('business', 'businessCategories'));
@@ -70,6 +82,9 @@ class BusinessController extends Controller
 
     public function myBusinessUpdate(Request $request, Business $business)
     {
+        // Batasi hak akses
+        Gate::authorize('update', $business);
+
         if ($request->action === 'delete') {
             // Hapus file gambar (jika ada)
             if ($business->image_path && file_exists(storage_path('app/public/' . $business->image_path))) {
