@@ -37,6 +37,9 @@ class ProfileController extends Controller
         if (!empty($validated['password'])) {
             $user->password = Hash::make($validated['password']);
 
+            // Simpan User
+            $user->save();
+
             // Logout User
             Auth::logout();
             $request->session()->invalidate();

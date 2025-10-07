@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ProductWishlistController;
 
@@ -35,6 +36,22 @@ Route::middleware('auth')->group(function () {
     // Edit Profil
     Route::get('/profil-saya', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profil-saya', [ProfileController::class, 'update'])->middleware('throttle:5,5')->name('profile.update');
+
+    // Usaha Saya
+    Route::get('/usaha-saya', [BusinessController::class, 'myBusinessIndex'])->name('my-business.index');
+    Route::get('/usaha-saya/tambah', [BusinessController::class, 'myBusinessCreate'])->name('my-business.create');
+    Route::post('/usaha-saya/tambah', [BusinessController::class, 'myBusinessStore'])->name('my-business.store');
+    Route::get('/usaha-saya/{business:slug}/ubah', [BusinessController::class, 'myBusinessEdit'])->name('my-business.edit');
+    Route::put('/usaha-saya/{business:slug}/ubah', [BusinessController::class, 'myBusinessUpdate'])->name('my-business.update');
+
+    // Produk Saya
+    Route::get('/usaha-saya/{business:slug}/produk/tambah', [ProductController::class, 'myProductCreate'])->name('my-product.create');
+    Route::post('/usaha-saya/{business:slug}/produk/tambah', [ProductController::class, 'myProductStore'])->name('my-product.store');
+    Route::get('/usaha-saya/{business:slug}/produk/{product:slug}/ubah', [ProductController::class, 'myProductEdit'])->name('my-product.edit');
+    Route::put('/usaha-saya/{business:slug}/produk/{product:slug}/ubah', [ProductController::class, 'myProductUpdate'])->name('my-product.update');
+    Route::delete('/usaha-saya/{business:slug}/produk/{product:slug}', [ProductController::class, 'myProductDestroy'])->name('my-product.destroy');
+    Route::delete('/usaha-saya/{business:slug}/produk/{product:slug}/gambar/{image}', [ProductController::class, 'destroyImage'])->name('my-product.image.destroy');
+
 
     // Wishlist Produk
     Route::get('/wishlist-saya', [ProductWishlistController::class, 'index'])->name('product-wishlist.index');

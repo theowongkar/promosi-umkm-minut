@@ -69,7 +69,8 @@
                                 class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Profil
                                 Saya</a>
 
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Usaha Saya</a>
+                            <a href="{{ route('my-business.index') }}"
+                                class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Usaha Saya</a>
 
                             <a href="{{ route('product-wishlist.index') }}"
                                 class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Wishlist Saya</a>
