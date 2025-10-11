@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ProductWishlistController;
 
@@ -29,7 +30,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [RegisterController::class, 'store'])->middleware('throttle:5,5');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'isActiveUser')->group(function () {
     // Logout
     Route::post('/logout', [LoginController::class, 'logout'])->middleware('throttle:5,5')->name('logout');
 
@@ -61,4 +62,8 @@ Route::middleware('auth')->group(function () {
     // Review Produk
     Route::post('/review/{product}', [ProductReviewController::class, 'upsert'])->middleware('throttle:5,5')->name('product-review.upsert');
     Route::delete('/review/{product}', [ProductReviewController::class, 'destroy'])->middleware('throttle:5,5')->name('product-review.destroy');
+});
+
+Route::middleware('auth', 'isActiveUser', 'isAdmin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

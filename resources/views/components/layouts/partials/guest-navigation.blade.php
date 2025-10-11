@@ -69,6 +69,11 @@
                                 class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Profil
                                 Saya</a>
 
+                            @if (auth()->user()->role == 'Admin')
+                                <a href="{{ route('dashboard') }}"
+                                    class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Dashboard Admin</a>
+                            @endif
+
                             @can('viewAny', App\Models\Business::class)
                                 <a href="{{ route('my-business.index') }}"
                                     class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">Usaha Saya</a>

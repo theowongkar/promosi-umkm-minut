@@ -22,7 +22,7 @@
         <p class="text-xl mt-4 text-{{ $text_color }}-800">{{ $message }}</p>
 
 
-        <a href="{{ auth()->check() ? url('/dashboard') : url('/') }}"
+        <a href="{{ auth()->user()->role == 'Admin' ? url('/dashboard') : url('/') }}"
             class="mt-6 inline-block bg-{{ $text_color }}-600 text-white px-6 py-2 rounded">
             Kembali
         </a>
