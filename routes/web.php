@@ -7,7 +7,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\Dashboard\BusinessCategoryController as DashboardBusinessCategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\ProductCategoryController as DashboardProductCategoryController;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ProductWishlistController;
 
@@ -65,5 +67,18 @@ Route::middleware('auth', 'isActiveUser')->group(function () {
 });
 
 Route::middleware('auth', 'isActiveUser', 'isAdmin')->group(function () {
+    // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Dashboard Kategori Bisnis
+    Route::get('/dashboard/kategori-bisnis', [DashboardBusinessCategoryController::class, 'index'])->name('dashboard.business-category.index');
+    Route::post('/dashboard/kategori-bisnis/tambah', [DashboardBusinessCategoryController::class, 'store'])->name('dashboard.business-category.store');
+    Route::put('/dashboard/kategori-bisnis/{businessCategory:slug}/ubah', [DashboardBusinessCategoryController::class, 'update'])->name('dashboard.business-category.update');
+    Route::delete('/dashboard/kategori-bisnis/{businessCategory:slug}/hapus', [DashboardBusinessCategoryController::class, 'destroy'])->name('dashboard.business-category.destroy');
+
+    // Dashboard Kategori Produk
+    Route::get('/dashboard/kategori-produk', [DashboardProductCategoryController::class, 'index'])->name('dashboard.product-category.index');
+    Route::post('/dashboard/kategori-produk/tambah', [DashboardProductCategoryController::class, 'store'])->name('dashboard.product-category.store');
+    Route::put('/dashboard/kategori-produk/{productCategory:slug}/ubah', [DashboardProductCategoryController::class, 'update'])->name('dashboard.product-category.update');
+    Route::delete('/dashboard/kategori-produk/{productCategory:slug}/hapus', [DashboardProductCategoryController::class, 'destroy'])->name('dashboard.product-category.destroy');
 });

@@ -37,5 +37,32 @@
                 <span>Dashboard</span>
             </a>
         </div>
+
+        {{-- Kategori --}}
+        <div class="space-y-2">
+            <h1 class="mb-1 text-xs text-gray-300 font-bold uppercase">Kategori</h1>
+            <a href="{{ route('dashboard.business-category.index') }}"
+                class="flex items-center space-x-3 px-4 py-2 text-gray-200 text-sm font-semibold rounded-md hover:bg-white/10 {{ Route::is('dashboard.business-category.index') ? 'bg-white/10 text-white' : '' }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-tags-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                    <path
+                        d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043z" />
+                </svg>
+                <span>Kategori Bisnis</span>
+            </a>
+            <a href="{{ route('dashboard.product-category.index') }}"
+                class="flex items-center space-x-3 px-4 py-2 text-gray-200 text-sm font-semibold rounded-md hover:bg-white/10 {{ Route::is('dashboard.product-category.index') ? 'bg-white/10 text-white' : '' }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-tags-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                    <path
+                        d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043z" />
+                </svg>
+                <span>Kategori Produk</span>
+            </a>
+        </div>
     </nav>
 </div>
