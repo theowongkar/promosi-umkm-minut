@@ -2,16 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductReviewController;
+use App\Http\Controllers\ProductWishlistController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\BusinessController;
-use App\Http\Controllers\Dashboard\BusinessCategoryController as DashboardBusinessCategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\BusinessCategoryController as DashboardBusinessCategoryController;
 use App\Http\Controllers\Dashboard\ProductCategoryController as DashboardProductCategoryController;
-use App\Http\Controllers\ProductReviewController;
-use App\Http\Controllers\ProductWishlistController;
+use App\Http\Controllers\Dashboard\UserController as DashboardUserController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/mulai-berjualan', [HomeController::class, 'sellingGuide'])->name('selling-guide');
@@ -69,6 +70,14 @@ Route::middleware('auth', 'isActiveUser')->group(function () {
 Route::middleware('auth', 'isActiveUser', 'isAdmin')->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Dashboard User
+    Route::get('/dashboard/pengguna', [DashboardUserController::class, 'index'])->name('dashboard.user.index');
+    Route::get('/dashboard/pengguna/tambah', [DashboardUserController::class, 'create'])->name('dashboard.user.create');
+    Route::post('/dashboard/pengguna/tambah', [DashboardUserController::class, 'store'])->name('dashboard.user.store');
+    Route::get('/dashboard/pengguna/{user}/ubah', [DashboardUserController::class, 'edit'])->name('dashboard.user.edit');
+    Route::put('/dashboard/pengguna/{user}/ubah', [DashboardUserController::class, 'update'])->name('dashboard.user.update');
+    Route::delete('/dashboard/pengguna/{user}/hapus', [DashboardUserController::class, 'destroy'])->name('dashboard.user.destroy');
 
     // Dashboard Kategori Bisnis
     Route::get('/dashboard/kategori-bisnis', [DashboardBusinessCategoryController::class, 'index'])->name('dashboard.business-category.index');
