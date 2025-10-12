@@ -72,7 +72,7 @@
                             <ul class="mt-2 ml-4 list-disc list-outside text-gray-700">
                                 @foreach ($business->products as $product)
                                     <li>
-                                        <a href="#"
+                                        <a href="{{ route('dashboard.product.edit', $product->slug) }}"
                                             class="text-blue-600 line-clamp-2 hover:underline">{{ $product->name }}</a>
                                     </li>
                                 @endforeach

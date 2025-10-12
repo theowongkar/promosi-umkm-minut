@@ -1,9 +1,9 @@
 <x-app-layout>
 
     {{-- Judul Halaman --}}
-    <x-slot name="title">Data User</x-slot>
+    <x-slot name="title">Data Produk</x-slot>
 
-    {{-- Bagian User --}}
+    {{-- Bagian Produk --}}
     <section class="space-y-2">
 
         {{-- Header --}}
@@ -11,42 +11,10 @@
             <div class="p-2 space-y-2">
                 {{-- Modal Create --}}
                 <div x-data="{ openCreate: false }" class="flex flex-col lg:flex-row items-center justify-between gap-4">
-                    {{-- Tombol Tambah --}}
-                    <x-buttons.primary-button href="{{ route('dashboard.user.create') }}"
-                        class="w-full lg:w-auto text-center bg-green-600 hover:bg-green-700">
-                        Tambah
-                    </x-buttons.primary-button>
 
                     {{-- Form Filter & Search --}}
-                    <form method="GET" action="{{ route('dashboard.user.index') }}"
+                    <form method="GET" action="{{ route('dashboard.product.index') }}"
                         class="w-full flex justify-end gap-1" x-data="{ openFilter: '' }">
-
-                        {{-- Filter: Role --}}
-                        <div class="relative">
-                            <button type="button"
-                                @click="requestAnimationFrame(() => openFilter = openFilter === 'role' ? '' : 'role')"
-                                class="cursor-pointer bg-white border border-gray-300 rounded-md p-2 hover:ring-1 hover:ring-blue-500 text-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                    fill="currentColor" class="bi bi-person-lock size-5" viewBox="0 0 16 16">
-                                    <path
-                                        d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 5.996V14H3s-1 0-1-1 1-4 6-4q.845.002 1.544.107a4.5 4.5 0 0 0-.803.918A11 11 0 0 0 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664zM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1" />
-                                </svg>
-                            </button>
-                            <div x-show="openFilter === 'role'" @click.away="openFilter = ''" x-transition
-                                class="absolute z-10 mt-2 w-44 bg-white border border-gray-300 rounded-md shadow-lg p-3">
-                                <label class="block text-xs text-gray-500 mb-1">Role</label>
-                                <select name="role" x-on:change="$root.submit()"
-                                    class="block w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500">
-                                    <option value="" {{ request('role') == '' ? 'selected' : '' }}>Semua</option>
-                                    <option value="Admin" {{ request('role') == 'Admin' ? 'selected' : '' }}>Admin
-                                    </option>
-                                    <option value="Penjual" {{ request('role') == 'Penjual' ? 'selected' : '' }}>Penjual
-                                    </option>
-                                    <option value="Pengunjung" {{ request('role') == 'Pengunjung' ? 'selected' : '' }}>
-                                        Pengunjung</option>
-                                </select>
-                            </div>
-                        </div>
 
                         {{-- Filter: Status --}}
                         <div class="relative">
@@ -68,10 +36,15 @@
                                     class="block w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500">
                                     <option value="" {{ request('status') == '' ? 'selected' : '' }}>Semua
                                     </option>
-                                    <option value="Aktif" {{ request('status') == 'Aktif' ? 'selected' : '' }}>Aktif
+                                    <option value="Menunggu Persetujuan"
+                                        {{ request('status') == 'Menunggu Persetujuan' ? 'selected' : '' }}>
+                                        Menunggu Persetujuan
                                     </option>
-                                    <option value="Tidak Aktif"
-                                        {{ request('status') == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                                    <option value="Diterima" {{ request('status') == 'Diterima' ? 'selected' : '' }}>
+                                        Diterima
+                                    </option>
+                                    <option value="Ditolak" {{ request('status') == 'Ditolak' ? 'selected' : '' }}>
+                                        Ditolak</option>
                                 </select>
                             </div>
                         </div>
@@ -122,7 +95,7 @@
 
                         {{-- Input Search --}}
                         <div class="w-full lg:w-80">
-                            <x-forms.input type="text" name="search" placeholder="Cari nama atau email pengguna..."
+                            <x-forms.input type="text" name="search" placeholder="Cari nama produk atau toko..."
                                 autocomplete="off" value="{{ request('search') }}"
                                 x-on:input.debounce.500ms="$root.submit()"></x-forms.input>
                         </div>
@@ -131,7 +104,7 @@
 
                 {{-- Pagination --}}
                 <div class="overflow-x-auto">
-                    {{ $users->withQueryString()->links('pagination::custom') }}
+                    {{ $products->withQueryString()->links('pagination::custom') }}
                 </div>
             </div>
         </div>
@@ -145,32 +118,38 @@
                 <thead class="bg-[#3e2723] text-gray-50">
                     <tr>
                         <th class="p-2 font-normal text-center border-r border-gray-600">#</th>
-                        <th class="p-2 font-normal text-left border-r border-gray-600">Nama</th>
-                        <th class="p-2 font-normal text-left border-r border-gray-600">Email</th>
-                        <th class="p-2 font-normal text-left border-r border-gray-600">Role</th>
-                        <th class="p-2 font-normal text-center border-r border-gray-600">Status</th>
+                        <th class="p-2 font-normal text-left border-r border-gray-600">Nama Produk</th>
+                        <th class="p-2 font-normal text-left border-r border-gray-600">Kategori</th>
+                        <th class="p-2 font-normal text-left border-r border-gray-600">Nama Toko</th>
+                        <th class="p-2 font-normal text-left border-r border-gray-600">Price</th>
+                        <th class="p-2 font-normal text-left border-r border-gray-600">Status</th>
                         <th class="p-2 font-normal text-center border-r border-gray-600">Dibuat</th>
                         <th class="p-2 font-normal text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-300">
-                    @forelse($users as $user)
+                    @forelse($products as $product)
                         <tr class="hover:bg-blue-50">
                             <td class="p-2 text-center border-r border-gray-300">
-                                {{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}
+                                {{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}
                             </td>
-                            <td class="p-2 border-r border-gray-300 whitespace-nowrap">{{ $user->name }}
+                            <td class="p-2 border-r border-gray-300 whitespace-nowrap">{{ $product->name }}
                             </td>
-                            <td class="p-2 border-r border-gray-300 whitespace-nowrap">{{ $user->email }}
+                            <td class="p-2 border-r border-gray-300 whitespace-nowrap">{{ $product->category->name }}
                             </td>
-                            <td class="p-2 border-r border-gray-300 whitespace-nowrap">{{ $user->role }}
+                            <td class="p-2 border-r border-gray-300 whitespace-nowrap">{{ $product->business->name }}
+                            </td>
+                            <td class="p-2 border-r border-gray-300 whitespace-nowrap">Rp
+                                {{ number_format($product->price, 0, ',', '.') }}
                             </td>
                             <td class="p-2 text-center border-r border-gray-300">
                                 @php
-                                    $status = $user->status;
+                                    $status = $product->status;
                                     $colors = [
-                                        'Aktif' => 'bg-green-200 text-green-800 border border-green-400',
-                                        'Tidak Aktif' => 'bg-red-200 text-red-800 border border-red-400',
+                                        'Menunggu Persetujuan' =>
+                                            'bg-yellow-200 text-yellow-800 border border-yellow-400',
+                                        'Diterima' => 'bg-green-200 text-green-800 border border-green-400',
+                                        'Ditolak' => 'bg-red-200 text-red-800 border border-red-400',
                                     ];
                                 @endphp
 
@@ -180,18 +159,19 @@
                                 </span>
                             </td>
                             <td class="p-2 text-center border-r border-gray-300 whitespace-nowrap">
-                                {{ \Carbon\Carbon::parse($user->created_at)->format('d/m/Y H:i') }}
+                                {{ \Carbon\Carbon::parse($product->created_at)->format('d/m/Y H:i') }}
                             </td>
                             <td class="p-2 whitespace-nowrap">
                                 <div class="flex justify-center items-center gap-2">
-                                    {{-- Tombol Edit --}}
-                                    <a href="{{ route('dashboard.user.edit', $user->id) }}"
+                                    {{-- Tombol Ubah --}}
+                                    <a href="{{ route('dashboard.product.edit', $product->slug) }}"
                                         class="text-yellow-600 hover:underline text-sm cursor-pointer">
-                                        Edit
+                                        Ubah
                                     </a>
 
-                                    <form action="{{ route('dashboard.user.destroy', $user->id) }}" method="POST"
-                                        class="inline" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                    <form action="{{ route('dashboard.product.destroy', $product->slug) }}"
+                                        method="POST" class="inline"
+                                        onsubmit="return confirm('Yakin ingin menghapus?')">
                                         @csrf
                                         @method('DELETE')
                                         <button
@@ -202,7 +182,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="p-4 text-center text-gray-500">Tidak ada data user
+                            <td colspan="7" class="p-4 text-center text-gray-500">Tidak ada data produk
                             </td>
                         </tr>
                     @endforelse
