@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\BusinessCategoryController as DashboardBusinessCategoryController;
+use App\Http\Controllers\Dashboard\BusinessController as DashboardBusinessController;
 use App\Http\Controllers\Dashboard\ProductCategoryController as DashboardProductCategoryController;
 use App\Http\Controllers\Dashboard\UserController as DashboardUserController;
 
@@ -90,4 +91,10 @@ Route::middleware('auth', 'isActiveUser', 'isAdmin')->group(function () {
     Route::post('/dashboard/kategori-produk/tambah', [DashboardProductCategoryController::class, 'store'])->name('dashboard.product-category.store');
     Route::put('/dashboard/kategori-produk/{productCategory:slug}/ubah', [DashboardProductCategoryController::class, 'update'])->name('dashboard.product-category.update');
     Route::delete('/dashboard/kategori-produk/{productCategory:slug}/hapus', [DashboardProductCategoryController::class, 'destroy'])->name('dashboard.product-category.destroy');
+
+    // Dashboard Bisnis
+    Route::get('/dashboard/bisnis', [DashboardBusinessController::class, 'index'])->name('dashboard.business.index');
+    Route::get('/dashboard/bisnis/cetak', [DashboardBusinessController::class, 'pdf'])->name('dashboard.business.pdf');
+    Route::get('/dashboard/bisnis/{business:slug}/lihat', [DashboardBusinessController::class, 'show'])->name('dashboard.business.show');
+    Route::delete('/dashboard/bisnis/{business:slug}/hapus', [DashboardBusinessController::class, 'destroy'])->name('dashboard.business.destroy');
 });
