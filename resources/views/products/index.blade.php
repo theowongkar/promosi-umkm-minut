@@ -126,7 +126,7 @@
                     </div>
 
                     <div class="mt-5">
-                        {{ $products->withQueryString()->links('vendor.pagination.default') }}
+                        {{ $products->withQueryString()->links('vendor.pagination.custom') }}
                     </div>
                 </div>
             </div>

@@ -2,19 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductReviewController;
-use App\Http\Controllers\ProductWishlistController;
+use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\ProductReviewController;
+use App\Http\Controllers\ProductWishlistController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\BusinessCategoryController as DashboardBusinessCategoryController;
+use App\Http\Controllers\Dashboard\UserController as DashboardUserController;
+use App\Http\Controllers\Dashboard\ProductController as DashboardProductController;
 use App\Http\Controllers\Dashboard\BusinessController as DashboardBusinessController;
 use App\Http\Controllers\Dashboard\ProductCategoryController as DashboardProductCategoryController;
-use App\Http\Controllers\Dashboard\ProductController as DashboardProductController;
-use App\Http\Controllers\Dashboard\UserController as DashboardUserController;
+use App\Http\Controllers\Dashboard\BusinessCategoryController as DashboardBusinessCategoryController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/mulai-berjualan', [HomeController::class, 'sellingGuide'])->name('selling-guide');
@@ -29,6 +30,10 @@ Route::middleware('guest')->group(function () {
     // Login
     Route::get('/login', [LoginController::class, 'login'])->name('login');
     Route::post('/login', [LoginController::class, 'authenticate'])->middleware('throttle:10,5');
+
+    // OAuth
+    Route::get('auth/google', [SocialiteController::class, 'redirectToGoogle'])->name('login.google');
+    Route::get('auth/google/callback', [SocialiteController::class, 'googleCallback']);
 
     // Register
     Route::get('/register', [RegisterController::class, 'register'])->name('register');
@@ -57,7 +62,6 @@ Route::middleware('auth', 'isActiveUser')->group(function () {
     Route::put('/usaha-saya/{business:slug}/produk/{product:slug}/ubah', [ProductController::class, 'myProductUpdate'])->name('my-product.update');
     Route::delete('/usaha-saya/{business:slug}/produk/{product:slug}', [ProductController::class, 'myProductDestroy'])->name('my-product.destroy');
     Route::delete('/usaha-saya/{business:slug}/produk/{product:slug}/gambar/{image}', [ProductController::class, 'destroyImage'])->name('my-product.image.destroy');
-
 
     // Wishlist Produk
     Route::get('/wishlist-saya', [ProductWishlistController::class, 'index'])->name('product-wishlist.index');

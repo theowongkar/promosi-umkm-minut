@@ -20,6 +20,10 @@ return new class extends Migration
             $table->enum('role', ['Admin', 'Penjual', 'Pengunjung'])->default('Pengunjung');
             $table->enum('status', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->rememberToken();
+            // Google OAuth columns
+            $table->string('google_id')->nullable()->index();
+            $table->text('google_token')->nullable();
+            $table->text('google_refresh_token')->nullable();
             $table->timestamps();
         });
 
