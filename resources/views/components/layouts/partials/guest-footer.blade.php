@@ -6,7 +6,7 @@
                 <div class="flex items-center justify-start gap-x-2">
                     <img src="{{ asset('img/application-logo.svg') }}" alt="Logo Aplikasi" class="w-14 h-14" />
                     <div class="leading-0">
-                        <h3 class="text-xl font-bold uppercase">Promosi UMKM</h3>
+                        <h2 class="text-xl font-bold uppercase">Promosi UMKM</h2>
                         <p class="text-gray-100 text-xl capitalize">Minahasa Utara</p>
                     </div>
                 </div>

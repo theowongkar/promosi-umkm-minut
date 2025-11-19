@@ -36,7 +36,8 @@
 
                 <input type="hidden" name="category" value="{{ request('category') }}">
 
-                <button type="submit" class="absolute inset-y-0 right-0 flex items-center pr-3">
+                <button type="submit" aria-label="Search Button"
+                    class="absolute inset-y-0 right-0 flex items-center pr-3">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5 text-gray-400 cursor-pointer hover:text-blue-500" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
