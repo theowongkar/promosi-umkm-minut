@@ -3,6 +3,24 @@
     {{-- Judul Halaman --}}
     <x-slot name="title">{{ $product->name }}</x-slot>
 
+    @push('meta')
+        <meta name="description" content="{{ Str::limit(strip_tags($product->description), 160) }}">
+        <meta name="keywords"
+            content="{{ $product->name }}, {{ $product->category->name }}, UMKM {{ $product->business->name }}">
+        <link rel="canonical" href="{{ url()->current() }}" />
+
+        {{-- Open Graph untuk share WhatsApp / Facebook --}}
+        <meta property="og:title" content="{{ $product->name }}">
+        <meta property="og:description" content="{{ Str::limit(strip_tags($product->description), 160) }}">
+        <meta property="og:image"
+            content="{{ $product->primaryImage?->image_path ? asset('storage/' . $product->primaryImage->image_path) : asset('img/placeholder-image.webp') }}">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:type" content="product">
+
+        {{-- Twitter --}}
+        <meta name="twitter:card" content="summary_large_image">
+    @endpush
+
     {{-- Bagian Lihat Produk --}}
     <section>
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-8">
@@ -77,7 +95,7 @@
                                     window.location.href = '{{ route('login') }}';
                                     return;
                                 }
-
+                        
                                 fetch(this.isWishlisted ?
                                         '{{ route('product-wishlist.destroy', $product->id) }}' :
                                         '{{ route('product-wishlist.store', $product->id) }}', {
